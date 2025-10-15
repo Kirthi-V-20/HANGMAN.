@@ -6,7 +6,17 @@ import (
 	"math/rand"
 	"os"
 	"strings"
+	"unicode"
 )
+
+func isAllLetters(s string) bool {
+	for _, r := range s {
+		if !unicode.IsLetter(r) {
+			return false
+		}
+	}
+	return true
+}
 
 func getSecretWord(wordFileName string) string {
 	allowedWords := []string{}
@@ -19,7 +29,7 @@ func getSecretWord(wordFileName string) string {
 	for scanner.Scan() {
 		word := scanner.Text()
 
-		if word == strings.ToLower(word) && len(word) >= 6 {
+		if word == strings.ToLower(word) && len(word) >= 6 && isAllLetters(word) {
 			allowedWords = append(allowedWords, word)
 		}
 	}
